@@ -8,11 +8,10 @@ function CharacterModel() {
   const mixer = useRef(null);
   const action = useRef(null);
   const hasPlayed = useRef(false);
+  const [scale, setScale] = useState(0.6);
+  const [posX, setPosX] = useState(-1);
 
-  const [scale, setScale] = useState(0.6); 
-  const [posX, setPosX] = useState(-1); 
-
-  const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
   useEffect(() => {
     if (animations && animations.length > 0) {
@@ -25,14 +24,24 @@ function CharacterModel() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
 
-      if (scrollY < 200) {
-      
-        const progress = scrollY / 200;
-        const easedProgress = easeInOut(progress);
-        setScale(0.6 - easedProgress * 0.3); 
-        setPosX(-1 + easedProgress * 2); 
+      // 🔄 Restart animation if user scrolls back to top
+      if (scrollY < 20 && hasPlayed.current) {
+        hasPlayed.current = false;
+        if (action.current) {
+          action.current.reset(); // resets animation state
+          action.current.stop();
+        }
       }
 
+      // 🌀 Smooth scale and position movement
+      if (scrollY < 200) {
+        const progress = scrollY / 200;
+        const eased = easeInOut(progress);
+        setScale(0.6 - eased * 0.3);
+        setPosX(-1 + eased * 2);
+      }
+
+      // ▶️ Play animation again when scrolling down from top
       if (scrollY > 0 && !hasPlayed.current && action.current) {
         action.current.play();
         hasPlayed.current = true;
@@ -43,13 +52,16 @@ function CharacterModel() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [animations, scene]);
 
-  useFrame((_, delta) => {
-    if (mixer.current) mixer.current.update(delta);
-  });
+  useFrame((_, delta) => mixer.current && mixer.current.update(delta));
 
   return (
     <Center>
-      <primitive object={scene} scale={scale} position={[posX, -0.2, 0]} rotation={[-0.2, 0, 0]} />
+      <primitive
+        object={scene}
+        scale={scale}
+        position={[posX, -0.2, 0]}
+        rotation={[-0.2, 0, 0]}
+      />
     </Center>
   );
 }
@@ -59,7 +71,7 @@ export default function ModelViewer() {
     <div
       style={{
         width: "100%",
-        height: "100vh", 
+        height: "100vh",
         marginTop: "80px",
         display: "flex",
         justifyContent: "center",
@@ -68,24 +80,19 @@ export default function ModelViewer() {
       }}
     >
       <Canvas
-        camera={{
-          position: [0, 2.2, 5.5], 
-          fov: 45,
-          near: 0.1,
-          far: 100,
+        camera={{ position: [0, 2.2, 5.5], fov: 45, near: 0.1, far: 100 }}
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "radial-gradient(circle at center, #060606, #000000)",
         }}
-        style={{ width: "100%", height: "100%", background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={1.2} />
+          <ambientLight intensity={1.1} />
           <directionalLight position={[3, 5, 3]} intensity={1.8} />
-          <Environment preset="studio" />
+          <Environment preset="city" background={false} />
           <CharacterModel />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            enableRotate={false}
-          />
+          <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
         </Suspense>
       </Canvas>
     </div>
