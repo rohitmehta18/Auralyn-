@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 120vh; /* ✅ allows scrolling */
   text-align: center;
   color: #e6f2ff;
   background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
@@ -11,12 +11,18 @@
   background-repeat: no-repeat;
   background-size: cover;
   animation: fadeIn 1.2s ease-out;
+  overflow-x: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 10; /* ensures text appears ABOVE model */
+  animation: fadeIn 1.2s ease-out;
 }
 
 .title {
   font-size: 3.2rem;
   font-weight: 700;
-  letter-spacing: 1px;
   margin-bottom: 12px;
   color: #e8f5ff;
   text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
@@ -52,7 +58,24 @@
   transform: scale(1.06);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.model-wrapper {
+  position: relative;
+  width: 100vw; /* ✅ full width */
+  height: 80vh;
+  z-index: 1;
+  pointer-events: none; /* still allows button clicks above it */
+  overflow: hidden;
 }
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
