@@ -11,7 +11,7 @@ export default function Home() {
         <button className="explore-btn">Explore Music</button>
       </div>
 
-      {/* 3D Model Section */}
+      { }
       <div className="model-wrapper">
         <ModelViewer />
       </div>

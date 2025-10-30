@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 120vh; /* ✅ allows scrolling */
+  min-height: 120vh; 
   text-align: center;
   color: #e6f2ff;
   background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
@@ -16,7 +16,7 @@
 
 .content {
   position: relative;
-  z-index: 10; /* ensures text appears ABOVE model */
+  z-index: 10; 
   animation: fadeIn 1.2s ease-out;
 }
 
@@ -60,10 +60,10 @@
 
 .model-wrapper {
   position: relative;
-  width: 100vw; /* ✅ full width */
+  width: 100vw; 
   height: 80vh;
   z-index: 1;
-  pointer-events: none; /* still allows button clicks above it */
+  pointer-events: none; 
   overflow: hidden;
 }
 
