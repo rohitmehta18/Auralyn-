@@ -1,117 +1,121 @@
-  .home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 120vh;
-    text-align: center;
-    color: #e6f2ff;
-    background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
-                linear-gradient(135deg, #050505, #080a0d, #0a0c10);
-    background-repeat: no-repeat;
-    background-size: cover;
-    animation: fadeIn 1.2s ease-out;
-    overflow-x: hidden;
-  }
+/* Home.css (replace the existing rules with this) */
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 120vh;
+  text-align: center;
+  color: #e6f2ff;
+  background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
+              linear-gradient(135deg, #050505, #080a0d, #0a0c10);
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: fadeIn 1.2s ease-out;
+  overflow-x: hidden;
+}
 
+/* Hero content above the 3D layer */
+.content {
+  position: relative;
+  z-index: 60;                 /* above 3D so headline stays readable */
+  animation: fadeIn 1.2s ease-out;
+  margin-top: 150px;
+}
 
-  .content {
-    position: relative;
-    z-index: 10;
-    animation: fadeIn 1.2s ease-out;
-    margin-top: 150px; /* <--- added */
-  }
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #e8f5ff;
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
+}
 
-  .title {
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #e8f5ff;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
-  }
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin-bottom: 35px;
+  color: #c3d2e3;
+  max-width: 500px;
+  line-height: 1.5;
+}
 
-  .subtitle {
-    font-size: 1.1rem;
-    opacity: 0.85;
-    margin-bottom: 35px;
-    color: #c3d2e3;
-    max-width: 500px;
-    line-height: 1.5;
-  }
+.explore-btn {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(0, 191, 255, 0.25);
+  border-radius: 28px;
+  padding: 12px 36px;
+  color: #e8f5ff;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.15);
+}
 
-  .explore-btn {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(0, 191, 255, 0.25);
-    border-radius: 28px;
-    padding: 12px 36px;
-    color: #e8f5ff;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 0 8px rgba(0, 191, 255, 0.15);
-  }
+.explore-btn:hover {
+  background: rgba(0, 191, 255, 0.18);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+  transform: scale(1.06);
+}
 
-  .explore-btn:hover {
-    background: rgba(0, 191, 255, 0.18);
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
-    transform: scale(1.06);
-  }
+/* Sticky, full-viewport 3D layer (sits above sections, below hero) */
+.model-wrapper {
+  position: sticky;            /* pins to viewport while scrolling */
+  top: 0;
+  width: 100vw;
+  height: 100vh;               /* full viewport, not 80vh */
+  pointer-events: none;        /* UI remains interactive */
+  z-index: 50;                 /* above content sections */
+  overflow: visible;           /* let enlarged model spill without clipping */
+}
 
-  .model-wrapper {
-    position: relative;
-    width: 100vw;
-    height: 80vh;
-    z-index: 1;
-    z-index: 10;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .content,
-  .model-wrapper {
-    position: relative;
-    z-index: 10;
-  }
+/* Ensure the R3F Canvas fills and stays transparent */
+.model-wrapper canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent !important;  /* avoid any black box */
+  z-index: 50;
+  will-change: transform, opacity;
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+/* Content sections below the 3D layer */
+.section {
+  position: relative;
+  z-index: 10;                 /* below the 3D; revealed as model fades */
+  padding: 80px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  color: #eaeaea;
+}
 
-  .model-wrapper {
-    position: relative;
-    width: 100vw;
-    height: 80vh;
-    pointer-events: none; /* lets page scroll naturally */
-    overflow: hidden;
-  }
-  
+.section.alt {
+  background: #0b0b0b;
+  color: #eaeaea;
+}
 
+/* Optional scroll test block */
+.scroll-test {
+  max-width: 800px;
+  margin: 100px auto;
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
 
-  /* Optional: give the canvas a stacking context */
-  .model-wrapper canvas {
-    z-index: 10;
-  }
+.scroll-test h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
 
-  /* Home.css */
-  .scroll-test {
-    max-width: 800px;
-    margin: 100px auto;
-    color: #ccc;
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
-  .scroll-test h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #fff;
-  }
-
+/* Fade-in animation for hero */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

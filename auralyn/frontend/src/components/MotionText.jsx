@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
@@ -7,7 +6,6 @@ export default function MotionText({ progress }) {
   useEffect(() => p.set(progress), [progress]);
   const ps = useSpring(p, { stiffness: 140, damping: 22, mass: 0.9 });
 
-  // Responsive X offset
   const [endX, setEndX] = useState(-280);
   useEffect(() => {
     const calc = () => {
@@ -19,11 +17,10 @@ export default function MotionText({ progress }) {
       else setEndX(-220);
     };
     calc();
-    window.addEventListener("resize", calc);
+    window.addEventListener("resize", calc, { passive: true });
     return () => window.removeEventListener("resize", calc);
   }, []);
 
-  // Motion mappings
   const x = useTransform(ps, [0, 1], [0, endX]);
   const y = useTransform(ps, [0, 1], [0, -10]);
   const opacity = useTransform(ps, [0, 0.3, 1], [0, 0.8, 1]);
