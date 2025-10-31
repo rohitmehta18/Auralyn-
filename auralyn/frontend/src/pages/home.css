@@ -1,9 +1,11 @@
 :root {
-  --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* system stack */
+  --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+/* ===== Base Layout ===== */
 .home {
   position: relative;
-  isolation: isolate;  /* predictable stacking */
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,63 +21,62 @@
   overflow-x: hidden;
 }
 
-/* brand font stack: modern rounded look without external load */
-:root {
-  --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* ===== Hero Section ===== */
+.content {
+  position: relative;
+  z-index: 300;
+  animation: fadeIn 1.2s ease-out;
+  margin-top: 150px;
 }
 
-/* Kicker line above brand */
-.title-kicker {
-  font-family: var(--brand-font);
-  font-size: 1.1rem;
-  letter-spacing: 0.6px;
-  color: #cfe9ff;
-  margin-bottom: 4px;
-}
-
-/* Brand heading container */
-.title.brand {
+.brand-title {
   font-family: var(--brand-font);
   font-weight: 700;
-  font-size: 3.2rem;
-  line-height: 1.1;
-  margin: 4px 0 12px;
-  color: #e8f5ff; /* fallback color */
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  line-height: 1.05;
+  margin: 6px 0 14px;
+  color: #e8f5ff;
   text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
 }
 
-/* 'A' logo + 'uralyn' word aligned on baseline */
+.brand-line {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.brand-kicker {
+  font-size: 0.65em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #d6ecff;
+  text-transform: uppercase;
+}
+
 .brand-word {
   display: inline-flex;
-  align-items: baseline; /* baseline alignment for logo + text */
+  align-items: baseline;
   gap: 10px;
 }
 
-/* Logo sizing tuned for 3.2rem heading; scales down responsively */
 .brand-logo {
-  height: 96px;
+  height: 1.8em;
   width: auto;
-  vertical-align: baseline;
+  transform: translateY(19px);
   filter: drop-shadow(0 2px 10px rgba(0, 191, 255, 0.25));
-  vertical-align: -0.18em;
 }
 
-/* Gradient text for 'uralyn', with safe fallbacks */
 .brand-text {
   display: inline-block;
   background-image: linear-gradient(90deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
   background-clip: text;
-  -webkit-background-clip: text;              /* webkit clip for text */
-  -webkit-text-fill-color: transparent;       /* make glyphs reveal gradient */
-  color: #e8f5ff;                             /* fallback when unsupported */
-}
-
-/* Existing hero content */
-.content {
-  position: relative;
-  z-index: 300; /* above 3D and shader */
-  animation: fadeIn 1.2s ease-out;
-  margin-top: 150px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  font-size: 1.3em;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(100, 200, 255, 0.15);
 }
 
 .subtitle {
@@ -108,18 +109,17 @@
   transform: scale(1.06);
 }
 
-/* Sticky, full-viewport 3D layer (kept sticky, stronger stacking) */
+/* ===== 3D Model Layer ===== */
 .model-wrapper {
   position: sticky;
   top: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 200;  /* above sections; below hero */
+  z-index: 200;
   overflow: visible;
 }
 
-/* Ensure the R3F Canvas fills and stays transparent */
 .model-wrapper canvas {
   position: absolute;
   inset: 0;
@@ -131,97 +131,30 @@
   will-change: transform, opacity;
 }
 
-/* Content sections below the 3D layer */
-.section {
+/* ===== White Landing Section ===== */
+.landing-content {
   position: relative;
-  z-index: 10; /* stays below .model-wrapper */
-  padding: 80px 24px;
-  max-width: 960px;
-  margin: 0 auto;
-  color: #eaeaea;
+  z-index: 10;
+  background: #ffffff;
+  color: #0a0a0a;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-.section.alt {
-  background: #0b0b0b;
-  color: #eaeaea;
-}
-
-/* Responsiveness */
-@media (max-width: 720px) {
-  .title.brand { font-size: 2.4rem; }
-  .brand-logo { height: 44px; }
-  .subtitle { max-width: 90vw; }
-}
-
-/* Fade-in animation for hero */
+/* ===== Animation ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.brand-title {
-  font-family: var(--brand-font);
-  font-weight: 700;
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem); /* responsive but consistent */
-  line-height: 1.05;                        /* tight for clean baseline */
-  margin: 6px 0 14px;
-  color: #e8f5ff;                           /* fallback color */
-  text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
-}
-
-/* Inline-flex baseline alignment across all parts */
-.brand-line {
-  display: inline-flex;
-  align-items: baseline; /* align logo + text on shared baseline */
-  gap: 12px;
-  white-space: nowrap;
-}
-
-/* Kicker scales relative to the heading for consistent proportions */
-.brand-kicker {
-  font-size: 0.65em;        /* increased from 0.44em → makes it more readable */
-  font-weight: 700;         /* bolder weight for stronger presence */
-  letter-spacing: 0.05em;   /* tightened a bit for compact feel */
-  color: #d6ecff;           /* slightly brighter for contrast */
-  text-transform: uppercase; /* optional – gives cinematic impact */
-}
-
-
-/* Word part with logo A + gradient text */
-.brand-word {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
-}
-
-/* Logo height tied to font size; vertical-align fine-tunes baseline fit */
-.brand-logo {
-  height: 1.8em;            /* keeps a strong visual presence */
-  width: auto;
-  vertical-align: -6.2em;
-  transform: translateY(19px);   /* lowered slightly from -1.9em → smoother alignment */
-  filter: drop-shadow(0 2px 10px rgba(0, 191, 255, 0.25));
-}
-
-
-/* Gradient text with WebKit fallback */
-.brand-text {
-  display: inline-block;
-  background-image: linear-gradient(90deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
-  background-clip: text;
-  -webkit-background-clip: text;       /* Safari/WebKit */
-  -webkit-text-fill-color: transparent;
-  color: #e8f5ff;                      /* fallback if clip unsupported */
-  
-  font-weight: 800;                    /* make it stronger and more striking */
-  font-size: 1.3em;                    /* slightly larger for balance */
-  letter-spacing: 0.02em;              /* keeps it elegant */
-  text-shadow: 0 0 20px rgba(100, 200, 255, 0.15); /* soft glow */
-}
-
-
-
-/* Responsive tweaks: keep proportions and alignment */
+/* ===== Responsive ===== */
 @media (max-width: 720px) {
   .brand-title {
     font-size: clamp(2rem, 7vw, 2.6rem);
@@ -229,6 +162,10 @@
 
   .brand-logo {
     height: 2.05em;
-    vertical-align: -0.18em; /* lowered from -0.1em → sits better visually */
+    vertical-align: -0.18em;
+  }
+
+  .subtitle {
+    max-width: 90vw;
   }
 }
