@@ -7,6 +7,13 @@ import DarkVeil from "../components/DarkVeil";
 import FlowingMenu from "../components/FlowingMenu";
 import alogo from "../assets/alogo.png";
 
+// Imported from src/assets (ensure file names/extensions are correct)
+import karan from "../assets/karan.jpg";
+import navvan from "../assets/navvan.jpg";
+import prem from "../assets/prem.jpg";
+import arijit from "../assets/arijit.jpg";
+import krsna from "../assets/krsna.jpg";
+
 export default function Home() {
   const [progress, setProgress] = useState(0);
   const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
@@ -22,11 +29,40 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Five artist images reused across all menus for now
+  const artistImages = [karan, prem, arijit, navvan, krsna];
+
   const menuItems = [
-    { link: "#one", text: "Popular artists", image: "/images/feat1.jpg" },
-    { link: "#two", text: "Popular radio", image: "/images/feat2.jpg" },
-    { link: "#three", text: "Featured Charts", image: "/images/feat3.jpg" },
-    { link: "#four", text: "Trending songs", image: "/images/feat4.jpg" },
+    {
+      link: "#artists",
+      text: "Popular artists",
+      images: artistImages,
+      marqueeTexts: ["Karan Aujla", "Prem Dhillon", "Arijit Singh", "Navaan Sandhu", "Kr$na"],
+    },
+    {
+      link: "#albums",
+      text: "Popular albums",
+      images: artistImages,
+      marqueeTexts: ["Aashiqui 2", "Kabir Singh", "Ae Dil Hai Mushkil", "Sanam Re", "Rockstar"],
+    },
+    {
+      link: "#radio",
+      text: "Popular radio",
+      images: artistImages,
+      marqueeTexts: ["Bollywood Beats", "Desi Vibes", "LoFi Hindi", "Top 40 India", "Retro 90s"],
+    },
+    {
+      link: "#charts",
+      text: "Featured Charts",
+      images: artistImages,
+      marqueeTexts: ["India Top 50", "Punjabi Hits", "Bollywood Hot 30", "Indie India", "Viral 50"],
+    },
+    {
+      link: "#trending",
+      text: "Trending songs",
+      images: artistImages,
+      marqueeTexts: ["Heeriye", "Kesariya", "Apna Bana Le", "Pasoori", "O Maahi"],
+    },
   ];
 
   return (
@@ -76,13 +112,11 @@ export default function Home() {
         <MotionText progress={progress} />
       </div>
 
-      {/* White Section */}
-<section className="landing-content">
-  <div className="landing-inner">
-
-    <FlowingMenu items={menuItems} theme="light" />
-  </div>
-</section>
+      <section className="landing-content">
+        <div className="landing-inner">
+          <FlowingMenu items={menuItems} theme="light" />
+        </div>
+      </section>
     </div>
   );
 }
