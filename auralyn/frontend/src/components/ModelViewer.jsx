@@ -9,17 +9,17 @@ function CharacterModel() {
   const action = useRef(null);
   const hasPlayed = useRef(false);
 
-  // Targets
+
   const scaleTarget = useRef(0.6);
   const posTarget = useRef(-1);
   const opacityTarget = useRef(1);
 
-  // Rendered values
+
   const scaleRef = useRef(0.6);
   const posXRef = useRef(-1);
   const opacityRef = useRef(1);
 
-  // Cache mesh materials for fading
+  
   const materialsRef = useRef([]);
 
   const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
@@ -32,18 +32,18 @@ function CharacterModel() {
       action.current.loop = THREE.LoopOnce;
     }
 
-    // Initial transform
+   
     scene.scale.setScalar(0.6);
     scene.position.set(-1, -0.2, 0);
     scene.rotation.set(-0.2, 0, 0);
 
-    // Collect materials once and enable transparency for fade
+    
     const mats = [];
     scene.traverse((obj) => {
       if (obj.isMesh && obj.material) {
         const arr = Array.isArray(obj.material) ? obj.material : [obj.material];
         arr.forEach((m) => {
-          m.transparent = true; // allow opacity to visually change
+          m.transparent = true; 
           mats.push(m);
         });
       }
@@ -61,7 +61,7 @@ function CharacterModel() {
       requestAnimationFrame(() => {
         const scrollY = window.scrollY;
 
-        // Reset animation if near top
+       
         if (scrollY < 20 && hasPlayed.current) {
           hasPlayed.current = false;
           if (action.current) {
@@ -70,7 +70,7 @@ function CharacterModel() {
           }
         }
 
-        // Phase A: 0–200px  (-1 → +1), scale 0.6 → 0.3
+      
         if (scrollY <= 200) {
           const p = Math.max(0, Math.min(1, scrollY / 200));
           const eased = easeInOut(p);
@@ -79,7 +79,7 @@ function CharacterModel() {
           opacityTarget.current = 1;
         }
 
-        // Phase B: 200–600px  (+1 → 0), scale 0.3 → 1.2
+        
         if (scrollY > 200 && scrollY <= 600) {
           const p = Math.max(0, Math.min(1, (scrollY - 200) / 400));
           const eased = easeInOut(p);
@@ -88,7 +88,7 @@ function CharacterModel() {
           opacityTarget.current = 1;
         }
 
-        // Phase C: 600–900px  (stay centered), scale 1.2 → 4.0, opacity 1 → 0
+     
         if (scrollY > 600 && scrollY <= 900) {
           const p = Math.max(0, Math.min(1, (scrollY - 600) / 300));
           const eased = easeInOut(p);
@@ -97,14 +97,14 @@ function CharacterModel() {
           opacityTarget.current = 1 - eased;
         }
 
-        // Clamp beyond
+       
         if (scrollY > 900) {
           scaleTarget.current = 4.0;
           posTarget.current = 0;
           opacityTarget.current = 0;
         }
 
-        // Play GLTF animation once on first scroll
+      
         if (scrollY > 0 && !hasPlayed.current && action.current) {
           action.current.play();
           hasPlayed.current = true;
@@ -122,17 +122,17 @@ function CharacterModel() {
   useFrame((_, delta) => {
     if (mixer.current) mixer.current.update(delta);
 
-    // Smooth damping toward targets
+
     scaleRef.current = THREE.MathUtils.damp(scaleRef.current, scaleTarget.current, 6, delta);
     posXRef.current = THREE.MathUtils.damp(posXRef.current, posTarget.current, 6, delta);
     opacityRef.current = THREE.MathUtils.damp(opacityRef.current, opacityTarget.current, 6, delta);
 
-    // Apply transforms
+    
     scene.scale.setScalar(scaleRef.current);
     scene.position.set(posXRef.current, -0.2, 0);
     scene.rotation.set(-0.2, 0, 0);
 
-    // Apply fade to all materials
+ 
     for (const m of materialsRef.current) {
       if (m && "opacity" in m) m.opacity = opacityRef.current;
     }
@@ -151,9 +151,9 @@ export default function ModelViewer() {
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 2.2, 5.5], fov: 45, near: 0.1, far: 100 }}
-        gl={{ antialias: true, alpha: true }}               // transparent WebGL context
-        onCreated={({ gl }) => gl.setClearAlpha(0)}         // ensure transparent clear
-        style={{ position: "absolute", inset: 0 }}          // cover the stage
+        gl={{ antialias: true, alpha: true }}              
+        onCreated={({ gl }) => gl.setClearAlpha(0)}         
+        style={{ position: "absolute", inset: 0 }}         
       >
         <Suspense fallback={null}>
           <ambientLight intensity={1.1} />

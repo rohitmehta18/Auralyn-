@@ -4,6 +4,7 @@ import "./Home.css";
 import ModelViewer from "../components/ModelViewer";
 import MotionText from "../components/MotionText";
 import DarkVeil from "../components/DarkVeil";
+import FlowingMenu from "../components/FlowingMenu";
 import alogo from "../assets/alogo.png";
 
 export default function Home() {
@@ -21,6 +22,13 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const menuItems = [
+    { link: "#one", text: "Popular artists", image: "/images/feat1.jpg" },
+    { link: "#two", text: "Popular radio", image: "/images/feat2.jpg" },
+    { link: "#three", text: "Featured Charts", image: "/images/feat3.jpg" },
+    { link: "#four", text: "Trending songs", image: "/images/feat4.jpg" },
+  ];
+
   return (
     <div className="home">
       <div className="darkveil-bg">
@@ -35,7 +43,6 @@ export default function Home() {
         />
       </div>
 
-      {/* Hero Content */}
       <div className="content top-hero">
         <motion.h1
           className="brand-title"
@@ -64,16 +71,18 @@ export default function Home() {
         <button className="explore-btn">Explore Music</button>
       </div>
 
-      {/* Sticky 3D Layer */}
       <div className="model-wrapper">
         <ModelViewer />
         <MotionText progress={progress} />
       </div>
 
-      {/* Single white section */}
-      <section className="landing-content">
-        <h1>Hello</h1>
-      </section>
+      {/* White Section */}
+<section className="landing-content">
+  <div className="landing-inner">
+
+    <FlowingMenu items={menuItems} theme="light" />
+  </div>
+</section>
     </div>
   );
 }
