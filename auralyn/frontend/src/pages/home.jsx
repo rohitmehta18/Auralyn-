@@ -4,8 +4,6 @@ import "./Home.css";
 import ModelViewer from "../components/ModelViewer";
 import MotionText from "../components/MotionText";
 import DarkVeil from "../components/DarkVeil";
-
-// logo asset
 import alogo from "../assets/alogo.png";
 
 export default function Home() {
@@ -72,35 +70,9 @@ export default function Home() {
         <MotionText progress={progress} />
       </div>
 
-      {/* Scroll Sections */}
-      <section className="section">
-        <h2>Discover the Sound</h2>
-        <p>Dive into curated tracks, immersive visuals, and stories behind the music.</p>
-        <p>Scroll to watch the model glide right, return center, expand, and fade as content appears below.</p>
-      </section>
-
-      <section className="section alt">
-        <h2>Featured Sessions</h2>
-        <p>Studio live-takes and acoustic cuts bring you closer to the performance with raw dynamics and texture.</p>
-        <p>Hear alternate arrangements, layered harmonies, and intimate mixes that highlight the core emotion of each track.</p>
-      </section>
-
-      <section className="section">
-        <h2>Playlists for Every Mood</h2>
-        <p>From sunrise focus to midnight ambient, find handcrafted playlists tuned to your day.</p>
-        <p>Save your favorites, share with friends, and follow evolving sets as new releases drop.</p>
-      </section>
-
-      <section className="section alt">
-        <h2>Behind the Scenes</h2>
-        <p>Explore writing notes, production breakdowns, and instruments used to craft signature sounds.</p>
-        <p>Get a peek at sessions, stems, and the creative process that fuels each release.</p>
-      </section>
-
-      <section className="section">
-        <h2>Stay in the Loop</h2>
-        <p>Subscribe for new drops, live events, and experimental visuals delivered straight to your feed.</p>
-        <p>Feedback shapes the journey—tell what resonates and what you want to hear next.</p>
+      {/* Single white section */}
+      <section className="landing-content">
+        <h1>Hello</h1>
       </section>
     </div>
   );

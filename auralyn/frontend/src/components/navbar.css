@@ -1,71 +1,59 @@
-/* === Floating Circle Logo === */
-.floating-logo {
+/* === Minimal Floating Logo (no circle) === */
+.nav-logo-fixed {
   position: fixed;
-  top: 14px;
-  left: 24px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 16px;
+  left: 32px;
   z-index: 10000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.floating-logo img {
-  width: 65%;
-  height: 65%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 4px rgba(0, 191, 255, 0.4));
+.nav-logo-fixed img {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 0 12px rgba(0, 191, 255, 0.5));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.floating-logo:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+.nav-logo-fixed:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 20px rgba(0, 191, 255, 0.7));
 }
 
-/* === Navbar Core === */
+/* === Center Glass Navbar === */
 .navbar {
   position: fixed;
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;
-  max-width: 720px;
+  width: 55%;
+  max-width: 700px;
   height: 52px;
   background: rgba(255, 255, 255, 0.07);
   border-radius: 40px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
   padding: 0 24px;
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 15, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(10, 10, 15, 0.55);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
 }
 
 /* === Center Links === */
 .nav-center {
   display: flex;
-  gap: 38px;
+  gap: 40px;
   list-style: none;
   color: #f1f6ff;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: 0.4px;
 }
@@ -80,40 +68,82 @@
   transform: scale(1.08);
 }
 
-/* === Right Auth Buttons === */
-.nav-right {
+/* === Right Floating Auth Bar === */
+.auth-bar {
+  position: fixed;
+  top: 10px;
+  right: 32px;
   display: flex;
   gap: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 40px;
+  padding: 8px 18px;
+  border: 1px solid rgba(0, 191, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 10000;
 }
 
 .login-btn,
 .signup-btn {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(0, 191, 255, 0.25);
+  background: transparent;
+  border: none;
   color: #e8f5ff;
   font-size: 0.95rem;
-  padding: 8px 20px;
-  border-radius: 24px;
+  padding: 8px 14px;
+  border-radius: 20px;
   font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(0, 191, 255, 0.15);
 }
 
 .login-btn:hover {
-  background: rgba(0, 191, 255, 0.15);
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.35);
+  color: #00bfff;
   transform: scale(1.05);
 }
 
 .signup-btn {
-  background: rgba(0, 191, 255, 0.15);
+  background: rgba(0, 191, 255, 0.2);
   border: 1px solid rgba(0, 191, 255, 0.4);
 }
 
 .signup-btn:hover {
-  background: rgba(0, 191, 255, 0.25);
-  box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-  transform: scale(1.07);
+  background: rgba(0, 191, 255, 0.3);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.5);
+  transform: scale(1.08);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .navbar {
+    width: 80%;
+    padding: 0 16px;
+  }
+
+  .auth-bar {
+    right: 16px;
+    padding: 6px 12px;
+  }
+
+  .nav-center {
+    gap: 24px;
+    font-size: 0.9rem;
+  }
+
+  .nav-logo-fixed img {
+    height: 44px;
+  }
+}
+
+
+.auth-bar.scrolled {
+  background: rgba(10, 10, 15, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Optional: keep left logo punchy on light backgrounds */
+.nav-logo-fixed.scrolled img {
+  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px rgba(0, 191, 255, 0.45));
 }
