@@ -1,5 +1,9 @@
-/* Home.css (replace the existing rules with this) */
+:root {
+  --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* system stack */
+}
 .home {
+  position: relative;
+  isolation: isolate;  /* predictable stacking */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,20 +19,63 @@
   overflow-x: hidden;
 }
 
-/* Hero content above the 3D layer */
-.content {
-  position: relative;
-  z-index: 60;                 /* above 3D so headline stays readable */
-  animation: fadeIn 1.2s ease-out;
-  margin-top: 150px;
+/* brand font stack: modern rounded look without external load */
+:root {
+  --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.title {
-  font-size: 3.2rem;
+/* Kicker line above brand */
+.title-kicker {
+  font-family: var(--brand-font);
+  font-size: 1.1rem;
+  letter-spacing: 0.6px;
+  color: #cfe9ff;
+  margin-bottom: 4px;
+}
+
+/* Brand heading container */
+.title.brand {
+  font-family: var(--brand-font);
   font-weight: 700;
-  margin-bottom: 12px;
-  color: #e8f5ff;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  margin: 4px 0 12px;
+  color: #e8f5ff; /* fallback color */
   text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
+}
+
+/* 'A' logo + 'uralyn' word aligned on baseline */
+.brand-word {
+  display: inline-flex;
+  align-items: baseline; /* baseline alignment for logo + text */
+  gap: 10px;
+}
+
+/* Logo sizing tuned for 3.2rem heading; scales down responsively */
+.brand-logo {
+  height: 96px;
+  width: auto;
+  vertical-align: baseline;
+  filter: drop-shadow(0 2px 10px rgba(0, 191, 255, 0.25));
+  vertical-align: -0.18em;
+}
+
+/* Gradient text for 'uralyn', with safe fallbacks */
+.brand-text {
+  display: inline-block;
+  background-image: linear-gradient(90deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;              /* webkit clip for text */
+  -webkit-text-fill-color: transparent;       /* make glyphs reveal gradient */
+  color: #e8f5ff;                             /* fallback when unsupported */
+}
+
+/* Existing hero content */
+.content {
+  position: relative;
+  z-index: 300; /* above 3D and shader */
+  animation: fadeIn 1.2s ease-out;
+  margin-top: 150px;
 }
 
 .subtitle {
@@ -61,15 +108,15 @@
   transform: scale(1.06);
 }
 
-/* Sticky, full-viewport 3D layer (sits above sections, below hero) */
+/* Sticky, full-viewport 3D layer (kept sticky, stronger stacking) */
 .model-wrapper {
-  position: sticky;            /* pins to viewport while scrolling */
+  position: sticky;
   top: 0;
   width: 100vw;
-  height: 100vh;               /* full viewport, not 80vh */
-  pointer-events: none;        /* UI remains interactive */
-  z-index: 50;                 /* above content sections */
-  overflow: visible;           /* let enlarged model spill without clipping */
+  height: 100vh;
+  pointer-events: none;
+  z-index: 200;  /* above sections; below hero */
+  overflow: visible;
 }
 
 /* Ensure the R3F Canvas fills and stays transparent */
@@ -79,15 +126,15 @@
   width: 100%;
   height: 100%;
   display: block;
-  background: transparent !important;  /* avoid any black box */
-  z-index: 50;
+  background: transparent !important;
+  z-index: 200;
   will-change: transform, opacity;
 }
 
 /* Content sections below the 3D layer */
 .section {
   position: relative;
-  z-index: 10;                 /* below the 3D; revealed as model fades */
+  z-index: 10; /* stays below .model-wrapper */
   padding: 80px 24px;
   max-width: 960px;
   margin: 0 auto;
@@ -99,23 +146,89 @@
   color: #eaeaea;
 }
 
-/* Optional scroll test block */
-.scroll-test {
-  max-width: 800px;
-  margin: 100px auto;
-  color: #ccc;
-  font-size: 1.1rem;
-  line-height: 1.7;
-}
-
-.scroll-test h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #fff;
+/* Responsiveness */
+@media (max-width: 720px) {
+  .title.brand { font-size: 2.4rem; }
+  .brand-logo { height: 44px; }
+  .subtitle { max-width: 90vw; }
 }
 
 /* Fade-in animation for hero */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+.brand-title {
+  font-family: var(--brand-font);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem); /* responsive but consistent */
+  line-height: 1.05;                        /* tight for clean baseline */
+  margin: 6px 0 14px;
+  color: #e8f5ff;                           /* fallback color */
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
+}
+
+/* Inline-flex baseline alignment across all parts */
+.brand-line {
+  display: inline-flex;
+  align-items: baseline; /* align logo + text on shared baseline */
+  gap: 12px;
+  white-space: nowrap;
+}
+
+/* Kicker scales relative to the heading for consistent proportions */
+.brand-kicker {
+  font-size: 0.65em;        /* increased from 0.44em → makes it more readable */
+  font-weight: 700;         /* bolder weight for stronger presence */
+  letter-spacing: 0.05em;   /* tightened a bit for compact feel */
+  color: #d6ecff;           /* slightly brighter for contrast */
+  text-transform: uppercase; /* optional – gives cinematic impact */
+}
+
+
+/* Word part with logo A + gradient text */
+.brand-word {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+/* Logo height tied to font size; vertical-align fine-tunes baseline fit */
+.brand-logo {
+  height: 1.8em;            /* keeps a strong visual presence */
+  width: auto;
+  vertical-align: -6.2em;
+  transform: translateY(19px);   /* lowered slightly from -1.9em → smoother alignment */
+  filter: drop-shadow(0 2px 10px rgba(0, 191, 255, 0.25));
+}
+
+
+/* Gradient text with WebKit fallback */
+.brand-text {
+  display: inline-block;
+  background-image: linear-gradient(90deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;       /* Safari/WebKit */
+  -webkit-text-fill-color: transparent;
+  color: #e8f5ff;                      /* fallback if clip unsupported */
+  
+  font-weight: 800;                    /* make it stronger and more striking */
+  font-size: 1.3em;                    /* slightly larger for balance */
+  letter-spacing: 0.02em;              /* keeps it elegant */
+  text-shadow: 0 0 20px rgba(100, 200, 255, 0.15); /* soft glow */
+}
+
+
+
+/* Responsive tweaks: keep proportions and alignment */
+@media (max-width: 720px) {
+  .brand-title {
+    font-size: clamp(2rem, 7vw, 2.6rem);
+  }
+
+  .brand-logo {
+    height: 2.05em;
+    vertical-align: -0.18em; /* lowered from -0.1em → sits better visually */
+  }
 }
