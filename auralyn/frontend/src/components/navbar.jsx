@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import alogo from "../assets/alogo.png";
@@ -15,12 +14,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Left minimalist floating logo */}
+      {}
       <div className={`nav-logo-fixed ${scrolled ? "scrolled" : ""}`}>
         <img src={alogo} alt="Logo" />
       </div>
 
-      {/* Main navigation bar */}
+      {}
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         <ul className="nav-center">
           <li>Home</li>
@@ -30,7 +29,7 @@ export default function Navbar() {
         </ul>
       </nav>
 
-      {/* Right glass auth bar */}
+      {}
       <div className={`auth-bar ${scrolled ? "scrolled" : ""}`}>
         <button className="login-btn">Login</button>
         <button className="signup-btn">Sign Up</button>

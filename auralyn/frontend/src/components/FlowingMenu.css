@@ -1,0 +1,124 @@
+/* FlowingMenu.css – Enlarged Light Theme */
+
+.menu-wrap {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background-color: #ffffff;
+  padding-top: 110px; /* space from the top of the component */
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  gap: 40px; /* space between each menu item */
+}
+
+.menu__item {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
+  height: 150px; /* increased height for each menu row */
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 700;
+  color: #222;
+  font-size: 15vh; /* made text much larger (~5-6x) */
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.menu__item-link:hover {
+  color: #ffffff;
+}
+
+.menu__item-link:focus:not(:focus-visible) {
+  color: #222;
+}
+
+/* Marquee effect (on hover) */
+.marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, #111, #333);
+  transform: translate3d(0, 101%, 0);
+  transition: transform 0.6s ease-expo;
+}
+
+.marquee__inner-wrap {
+  height: 100%;
+  width: 200%;
+  display: flex;
+  transform: translateX(0);
+}
+
+.marquee__inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 200%;
+  will-change: transform;
+  animation: marquee 15s linear infinite;
+}
+
+.marquee span {
+  color: #ffffff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12vh; /* match main text size */
+  line-height: 1.2;
+  padding: 1vh 2vw;
+}
+
+.marquee__img {
+  width: 400px;
+  height: 100px;
+  margin: 1em 2vw;
+  border-radius: 60px;
+  background-size: cover;
+  background-position: 50% 50%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.menu__item-link:hover + .marquee {
+  transform: translate3d(0, 0%, 0);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}

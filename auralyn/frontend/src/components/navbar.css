@@ -1,4 +1,4 @@
-/* === Minimal Floating Logo (no circle) === */
+
 .nav-logo-fixed {
   position: fixed;
   top: 16px;
@@ -19,7 +19,7 @@
   filter: drop-shadow(0 0 20px rgba(0, 191, 255, 0.7));
 }
 
-/* === Center Glass Navbar === */
+
 .navbar {
   position: fixed;
   top: 10px;
@@ -47,7 +47,7 @@
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* === Center Links === */
+
 .nav-center {
   display: flex;
   gap: 40px;
@@ -68,7 +68,7 @@
   transform: scale(1.08);
 }
 
-/* === Right Floating Auth Bar === */
+
 .auth-bar {
   position: fixed;
   top: 10px;
@@ -143,7 +143,7 @@
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Optional: keep left logo punchy on light backgrounds */
+
 .nav-logo-fixed.scrolled img {
   filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px rgba(0, 191, 255, 0.45));
 }
