@@ -60,7 +60,6 @@ function MenuItem({ link, text, images = [], marqueeTexts = [] }) {
       .to(marqueeInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0);
   };
 
-  // ✅ Alternate Name → Image → Name → Image pattern
   const imgs = images.slice(0, 5);
   const labels =
     marqueeTexts.length > 0
@@ -83,7 +82,7 @@ function MenuItem({ link, text, images = [], marqueeTexts = [] }) {
     );
   }
 
-  const marqueeContent = [...alternatingContent, ...alternatingContent]; // duplicate for infinite scroll
+  const marqueeContent = [...alternatingContent, ...alternatingContent]; 
 
   return (
     <div className="menu__item" ref={itemRef}>

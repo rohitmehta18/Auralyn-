@@ -5,9 +5,10 @@ import ModelViewer from "../components/ModelViewer";
 import MotionText from "../components/MotionText";
 import DarkVeil from "../components/DarkVeil";
 import FlowingMenu from "../components/FlowingMenu";
+import TextType from "../components/TextType";
+import AnimatedContent from "../components/AnimatedContent";
 import alogo from "../assets/alogo.png";
 
-// Imported from src/assets (ensure file names/extensions are correct)
 import karan from "../assets/karan.jpg";
 import navvan from "../assets/navvan.jpg";
 import prem from "../assets/prem.jpg";
@@ -29,7 +30,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Five artist images reused across all menus for now
   const artistImages = [karan, prem, arijit, navvan, krsna];
 
   const menuItems = [
@@ -104,7 +104,7 @@ export default function Home() {
         >
           Feel the rhythm. Feel the soul.
         </motion.p>
-        <button className="explore-btn">Explore Music</button>
+        <button className="make-music-btn">Explore Music</button>
       </div>
 
       <div className="model-wrapper">
@@ -115,6 +115,39 @@ export default function Home() {
       <section className="landing-content">
         <div className="landing-inner">
           <FlowingMenu items={menuItems} theme="light" />
+        </div>
+      </section>
+
+      {/* Centered dark-blue section with typing animation and animated button */}
+      <section id="make-music" className="make-music-section">
+        <div className="make-music-inner">
+          <AnimatedContent distance={60} duration={0.9} ease="power3.out" initialOpacity={0} direction="vertical" threshold={0.2}>
+            <h2 className="make-music-heading">
+              <TextType
+                as="span"
+                text="Wanna make your own music"
+                typingSpeed={50}
+                initialDelay={250}
+                pauseDuration={2000}
+                deletingSpeed={30}
+                loop={false}
+                showCursor={true}
+                hideCursorWhileTyping={false}
+                cursorCharacter="|"
+                cursorBlinkDuration={0.5}
+                textColors={["#ffffff"]}
+                variableSpeed={{ min: 35, max: 75 }}
+                startOnVisible={true}
+                className="make-music-typer"
+              />
+            </h2>
+          </AnimatedContent>
+
+          <AnimatedContent distance={80} duration={0.9} ease="power3.out" initialOpacity={0} direction="vertical" threshold={0.2} delay={0.1}>
+            <div className="make-music-actions">
+              <button className="make-music-btn">Explore more</button>
+            </div>
+          </AnimatedContent>
         </div>
       </section>
     </div>
