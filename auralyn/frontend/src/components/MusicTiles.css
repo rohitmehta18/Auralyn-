@@ -1,0 +1,304 @@
+/* MusicTiles.css */
+/* Root */
+.music-tiles-root {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+
+/* Row */
+.music-row {
+  margin: 0;
+  padding: 0;
+  animation: tilesFadeUp 0.7s ease-out both;
+  animation-delay: calc(var(--row-index, 0) * 0.06s);
+}
+@keyframes tilesFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Header */
+.row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 16px 10px 16px;
+}
+.row-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #e6f2ff;
+  text-shadow: 0 0 10px rgba(39, 208, 255, 0.25);
+}
+.row-controls { display: flex; gap: 8px; }
+.nav-btn {
+  height: 38px; width: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(39,208,255,0.3);
+  background: rgba(255,255,255,0.06);
+  color: #e6f2ff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.nav-btn:hover { transform: translateY(-2px); background: rgba(39,208,255,0.18); box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+.nav-btn.is-disabled { opacity: .4; pointer-events: none; }
+.nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+
+/* Scroller */
+.slider-container { position: relative; }
+.slider {
+  overflow-x: auto;
+  overflow-y: visible;           /* let raised tiles render above track */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 16px;
+  overscroll-behavior-x: contain;
+  padding: 6px 8px;
+  margin: 0;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge legacy */
+}
+.slider::-webkit-scrollbar { display: none; } /* WebKit */
+.slider::after {
+  content: "";
+  position: absolute; top: 0; right: 0; width: 40px; height: 100%;
+  pointer-events: none;
+  background: linear-gradient(270deg, rgba(5,7,10,.35), transparent);
+}
+
+
+/* Track */
+.slider-track {
+  display: flex;
+  gap: 16px;
+  padding: 6px 8px 8px 8px;
+  overflow: clip;                /* paint-only, no new scroll ctx */
+}
+
+
+/* Tile */
+.music-tile {
+  --br: 14px;
+  position: relative;
+  display: block;
+  width: 220px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--br);
+  will-change: transform;
+  isolation: isolate;            /* own stacking context */
+  z-index: 0;
+  overflow: hidden;              /* keep scale inside */
+}
+.music-tile:hover,
+.music-tile:focus-within { z-index: 3; }
+
+
+/* Media */
+.tile-media {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--br);
+  overflow: hidden;
+  background: #0b0f1a;
+  transform: translateZ(0);
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+  box-shadow: 0 10px 22px rgba(0,0,0,.32), 0 0 0 1px rgba(39,208,255,.06) inset;
+}
+.tile-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.6) 92%);
+  pointer-events: none;
+}
+
+
+/* Hover elevate + outline that doesn't resize */
+.music-tile:hover .tile-media,
+.music-tile:focus-visible .tile-media {
+  transform: scale(1.06);
+  box-shadow:
+    0 16px 32px rgba(0,0,0,.4),
+    0 0 0 2px rgba(39,208,255,.35) inset;
+  filter: saturate(1.06);
+}
+
+
+/* Badges */
+.explicit-badge,
+.duration-badge {
+  position: absolute; top: 8px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: .7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  letter-spacing: .2px;
+}
+.explicit-badge { left: 8px; font-weight: 800; border-radius: 4px; }
+.duration-badge { right: 8px; }
+
+
+/* Caption panel (glass) */
+.tile-info {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 10px 10px 10px 12px;
+  border-radius: 12px;
+  background: rgba(5, 9, 18, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(39,208,255,0.18);
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform .22s ease, opacity .22s ease;
+  pointer-events: auto;          /* allow clicking play */
+}
+.music-tile:hover .tile-info,
+.music-tile:focus-within .tile-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tile-info-text { min-width: 0; }
+
+
+/* Play button inside caption */
+.play-btn.in-info {
+  position: static;
+  height: 46px;
+  width: 46px;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
+  color: #0a0a0a;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 6px 16px rgba(39,208,255,.35);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.play-btn.in-info:hover { transform: translateY(-1px) scale(1.04); box-shadow: 0 10px 22px rgba(39,208,255,.45); }
+.play-btn.in-info svg { width: 18px; height: 18px; fill: currentColor; margin-left: 1px; }
+
+
+/* Info text */
+.tile-title {
+  margin: 0;
+  font-size: .98rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: .2px;
+  text-shadow: 0 1px 8px rgba(0,0,0,.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile-artist {
+  margin: 2px 0 0 0;
+  font-size: .86rem;
+  color: rgba(230,241,255,.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile-meta { display: flex; align-items: center; justify-content: space-between; }
+.tile-genre {
+  font-size: .72rem;
+  font-weight: 800;
+  color: #27d0ff;
+  background: rgba(39,208,255,.14);
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(39,208,255,.28);
+}
+
+
+/* Progress */
+.scroll-progress { padding: 6px 12px 0; }
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,.10);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #27d0ff, #6a68ff, #ff6db4);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+  .music-tile { width: 200px; }
+  .tile-img   { height: 200px; }
+}
+@media (max-width: 560px) {
+  .music-tile { width: 170px; }
+  .tile-img   { height: 170px; }
+  .music-tile:hover .tile-media,
+  .music-tile:focus-visible .tile-media { transform: scale(1.04); }
+}
+
+
+/* -------- Light theme overrides for white section -------- */
+
+/* Dark title text and no glow on white */
+.music-tiles-section .row-title {
+  color: #0a0a0a;
+  text-shadow: none;
+}
+
+/* Light nav buttons on white */
+.music-tiles-section .row-controls .nav-btn {
+  border: 1px solid rgba(10, 18, 40, 0.15);
+  background: #f7f9fc;
+  color: #1a2333;
+  box-shadow: 0 2px 10px rgba(10, 18, 40, 0.08);
+}
+.music-tiles-section .row-controls .nav-btn:hover {
+  transform: translateY(-2px);
+  background: #eef3ff;
+  box-shadow: 0 8px 20px rgba(10, 18, 40, 0.12);
+}
+
+/* Light edge fade for scroller */
+.music-tiles-section .slider::after {
+  background: linear-gradient(270deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+/* Subtle progress bar track on white */
+.music-tiles-section .progress-bar {
+  background: rgba(10, 18, 40, 0.08);
+}
