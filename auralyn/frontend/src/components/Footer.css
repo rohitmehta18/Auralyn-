@@ -1,0 +1,96 @@
+.footer {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(20, 25, 65, 0.95), rgba(45, 60, 150, 0.95));
+  color: #d6dcff;
+  font-family: "Inter", sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1000;
+  isolation: isolate;
+  padding: 30px 0;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.footer-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-bottom-inner {
+  width: 88%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 0.95rem;
+  color: rgba(220, 230, 255, 0.8);
+  letter-spacing: 0.4px;
+}
+
+.footer-legal {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-legal-link {
+  color: #a6baff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.footer-legal-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: #6b8cff;
+  transition: width 0.3s ease;
+  opacity: 0.8;
+}
+
+.footer-legal-link:hover {
+  color: #bcd0ff;
+  text-shadow: 0 0 6px rgba(150, 170, 255, 0.6);
+}
+
+.footer-legal-link:hover::after {
+  width: 100%;
+}
+
+/* Make sure footer is visible above canvas or 3D layers */
+footer, .footer {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Optional: subtle entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer {
+  animation: fadeUp 1.2s ease-out;
+}

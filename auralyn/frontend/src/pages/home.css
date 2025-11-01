@@ -1,41 +1,48 @@
+/* Home.css */
 :root {
   --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+
+/* Base */
 .home {
   position: relative;
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 120vh;
   text-align: center;
   color: #e6f2ff;
-  background: radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
-              linear-gradient(135deg, #050505, #080a0d, #0a0c10);
+  background:
+    radial-gradient(circle at top left, rgba(0, 191, 255, 0.12), transparent 60%),
+    linear-gradient(135deg, #050505, #080a0d, #0a0c10);
   background-repeat: no-repeat;
   background-size: cover;
   animation: fadeIn 1.2s ease-out;
   overflow-x: hidden;
 }
 
+
+/* Hero */
 .content {
   position: relative;
   z-index: 300;
   animation: fadeIn 1.2s ease-out;
-  margin-top: 150px;
+  margin-top: 120px; /* tighter top margin for more cinematic view */
 }
+
 
 .brand-title {
   font-family: var(--brand-font);
-  font-weight: 700;
+  font-weight: 600; /* less bold for smoother look */
   font-size: clamp(2.4rem, 4.4vw, 3.6rem);
   line-height: 1.05;
   margin: 6px 0 14px;
   color: #e8f5ff;
   text-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
 }
+
 
 .brand-line {
   display: inline-flex;
@@ -44,19 +51,22 @@
   white-space: nowrap;
 }
 
+
 .brand-kicker {
   font-size: 0.65em;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.05em;
   color: #d6ecff;
   text-transform: uppercase;
 }
+
 
 .brand-word {
   display: inline-flex;
   align-items: baseline;
   gap: 10px;
 }
+
 
 .brand-logo {
   height: 1.8em;
@@ -65,152 +75,86 @@
   filter: drop-shadow(0 2px 10px rgba(0, 191, 255, 0.25));
 }
 
+
 .brand-text {
   display: inline-block;
   background-image: linear-gradient(90deg, #27d0ff 0%, #6a68ff 52%, #ff6db4 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800;
+  font-weight: 700; /* reduced from 800 */
   font-size: 1.3em;
   letter-spacing: 0.02em;
   text-shadow: 0 0 20px rgba(100, 200, 255, 0.15);
 }
 
+
 .subtitle {
   font-size: 1.1rem;
-  opacity: 0.85;
+  opacity: 0.9;
   margin-bottom: 35px;
   color: #c3d2e3;
   max-width: 500px;
   line-height: 1.5;
 }
 
-.explore-btn {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(0, 191, 255, 0.25);
-  border-radius: 28px;
-  padding: 12px 36px;
-  color: #e8f5ff;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+
+/* CTA button */
+.explore-btn,
+.make-music-btn {
+  background: linear-gradient(135deg, #1db954, #1cb0f6);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(0, 191, 255, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
 }
 
-.explore-btn:hover {
-  background: rgba(0, 191, 255, 0.18);
-  box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
-  transform: scale(1.06);
+
+.explore-btn:hover,
+.make-music-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+  background: linear-gradient(135deg, #1ed760, #1cb0f6);
 }
 
+
+/* 3D model wrapper */
 .model-wrapper {
   position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   pointer-events: none;
   z-index: 200;
   overflow: visible;
 }
-
 .model-wrapper canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
   background: transparent !important;
   z-index: 200;
   will-change: transform, opacity;
 }
 
+
+/* Landing section (hidden if unused) */
 .landing-content {
-  position: relative;
-  z-index: 10;
-  background: #ffffff;
-  color: #0a0a0a;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: center;
+  display: none;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
-@media (max-width: 720px) {
-  .brand-title {
-    font-size: clamp(2rem, 7vw, 2.6rem);
-  }
-
-  .brand-logo {
-    height: 2.05em;
-    vertical-align: -0.18em;
-  }
-
-  .subtitle {
-    max-width: 90vw;
-  }
-}
-
-.landing-content {
-  position: relative;
-  z-index: 10;
-  background: #ffffff;
-  color: #0a0a0a;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.landing-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 60px;
-  width: 100%;
-}
-
-.special-text {
-  font-family: "Poppins", "Inter", "Exo 2", sans-serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  text-transform: none;
-  background: linear-gradient(90deg, #27d0ff 0%, #7c6aff 50%, #ff6db4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-  letter-spacing: 0.5px;
-  margin-top: 120px;
-  margin-bottom: 40px;
-  line-height: 1.1;
-  text-shadow: 0 0 35px rgba(100, 200, 255, 0.3);
-  align-self: flex-start;
-  text-align: left;
-  width: 100%;
-  padding-left: 8vw;
-}
-
-/* Centered dark-blue make-music section */
+/* CTA: Make Music Section */
 .make-music-section {
   position: relative;
   z-index: 10;
-  background: #031233;
+  background: linear-gradient(180deg, #000000 0%, #050505 100%);
   color: #ffffff;
   min-height: 70vh;
   width: 100%;
@@ -219,7 +163,34 @@
   justify-content: center;
   text-align: center;
   padding: 10vh 8vw;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 20px 40px rgba(255, 255, 255, 0.02);
 }
+
+
+.make-music-section::before,
+.make-music-section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+}
+
+
+.make-music-section::before {
+  top: 0;
+  background: linear-gradient(to top, #000000, transparent);
+}
+
+
+.make-music-section::after {
+  bottom: 0;
+  background: linear-gradient(to bottom, #000000, transparent);
+}
+
 
 .make-music-inner {
   width: 100%;
@@ -230,66 +201,73 @@
   gap: 28px;
 }
 
+
 .make-music-heading {
   font-family: "Poppins", "Inter", "Exo 2", sans-serif;
-  font-weight: 600; /* reduced from 800 */
+  font-weight: 600;
   font-size: clamp(1.8rem, 5vw, 3.2rem);
   line-height: 1.15;
   color: #ffffff;
   margin: 0;
   letter-spacing: 0.3px;
-  text-shadow: 0 0 12px rgba(100, 200, 255, 0.18);
+  text-shadow: 0 0 18px rgba(39, 208, 255, 0.2);
 }
 
-/* Actions wrapper for the button */
+
 .make-music-actions {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Matching-vibe button */
-.make-music-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(39, 208, 255, 0.35);
-  color: #ffffff;
-  border-radius: 16px;
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  backdrop-filter: blur(8px);
-  box-shadow:
-    0 0 0 1px rgba(39, 208, 255, 0.08) inset,
-    0 6px 18px rgba(39, 208, 255, 0.18),
-    0 0 32px rgba(255, 109, 180, 0.12);
-  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
-}
-
-.make-music-btn:hover {
-  background: rgba(39, 208, 255, 0.15);
-  box-shadow:
-    0 0 0 1px rgba(39, 208, 255, 0.16) inset,
-    0 10px 26px rgba(39, 208, 255, 0.28),
-    0 0 46px rgba(255, 109, 180, 0.18);
-  transform: translateY(-2px) scale(1.03);
-}
 
 .make-music-btn:active {
   transform: translateY(0px) scale(0.99);
 }
 
+
 .make-music-btn:focus-visible {
   outline: none;
-  box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.3),
-    0 0 0 6px rgba(39, 208, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.3), 0 0 0 6px rgba(39,208,255,0.2);
 }
 
-/* Ensure the cursor inherits white in the dark section */
+
 .make-music-typer,
 .make-music-typer .text-type__content,
 .make-music-typer .text-type__cursor {
   color: #ffffff;
+}
+
+
+/* Full-bleed MusicTiles section (light) */
+.music-tiles-section {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: #ffffff;              /* white background */
+  color: #0a0a0a;                   /* dark default text */
+  padding: 64px 0 72px;
+}
+
+
+.music-tiles-inner {
+  max-width: none;
+  padding: 0;
+}
+
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Responsive */
+@media (max-width: 720px) {
+  .brand-title { font-size: clamp(2rem, 7vw, 2.6rem); }
+  .brand-logo { height: 2.05em; vertical-align: -0.18em; }
+  .subtitle { max-width: 90vw; }
+  .make-music-section { padding: 6rem 1.5rem; }
+  .music-tiles-section { padding: 44px 0 56px; }
 }
