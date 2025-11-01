@@ -1,0 +1,19 @@
+.text-type {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.text-type__content {
+  /* inherits color from parent unless overridden by textColors prop */
+}
+
+.text-type__cursor {
+  margin-left: 0.10rem;
+  display: inline-block;
+  opacity: 1;
+  color: inherit;
+}
+
+.text-type__cursor--hidden {
+  display: none;
+}

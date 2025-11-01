@@ -2,7 +2,6 @@
   --brand-font: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-
 .home {
   position: relative;
   isolation: isolate;
@@ -20,7 +19,6 @@
   animation: fadeIn 1.2s ease-out;
   overflow-x: hidden;
 }
-
 
 .content {
   position: relative;
@@ -109,7 +107,6 @@
   transform: scale(1.06);
 }
 
-
 .model-wrapper {
   position: sticky;
   top: 0;
@@ -131,7 +128,6 @@
   will-change: transform, opacity;
 }
 
-
 .landing-content {
   position: relative;
   z-index: 10;
@@ -148,12 +144,10 @@
   text-align: center;
 }
 
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 
 @media (max-width: 720px) {
   .brand-title {
@@ -186,7 +180,7 @@
 .landing-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ✅ forces children (like special-text) to align left */
+  align-items: flex-start;
   gap: 60px;
   width: 100%;
 }
@@ -206,13 +200,96 @@
   margin-bottom: 40px;
   line-height: 1.1;
   text-shadow: 0 0 35px rgba(100, 200, 255, 0.3);
-
-  /* ✅ Force alignment to left */
   align-self: flex-start;
   text-align: left;
   width: 100%;
-  padding-left: 8vw; /* indent for breathing space */
+  padding-left: 8vw;
 }
 
+/* Centered dark-blue make-music section */
+.make-music-section {
+  position: relative;
+  z-index: 10;
+  background: #031233;
+  color: #ffffff;
+  min-height: 70vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10vh 8vw;
+}
 
+.make-music-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
 
+.make-music-heading {
+  font-family: "Poppins", "Inter", "Exo 2", sans-serif;
+  font-weight: 600; /* reduced from 800 */
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 12px rgba(100, 200, 255, 0.18);
+}
+
+/* Actions wrapper for the button */
+.make-music-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Matching-vibe button */
+.make-music-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(39, 208, 255, 0.35);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 0 1px rgba(39, 208, 255, 0.08) inset,
+    0 6px 18px rgba(39, 208, 255, 0.18),
+    0 0 32px rgba(255, 109, 180, 0.12);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.make-music-btn:hover {
+  background: rgba(39, 208, 255, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(39, 208, 255, 0.16) inset,
+    0 10px 26px rgba(39, 208, 255, 0.28),
+    0 0 46px rgba(255, 109, 180, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.make-music-btn:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.make-music-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.3),
+    0 0 0 6px rgba(39, 208, 255, 0.2);
+}
+
+/* Ensure the cursor inherits white in the dark section */
+.make-music-typer,
+.make-music-typer .text-type__content,
+.make-music-typer .text-type__cursor {
+  color: #ffffff;
+}
